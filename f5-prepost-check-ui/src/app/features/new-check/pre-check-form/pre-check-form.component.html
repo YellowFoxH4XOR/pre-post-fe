@@ -1,0 +1,75 @@
+<div class="pre-check-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Pre-Check Configuration</mat-card-title>
+      <mat-card-subtitle>Select devices and enter commands to execute</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form [formGroup]="preCheckForm" (ngSubmit)="onSubmit()">
+        <!-- Device Selection -->
+        <div class="form-section">
+          <h3>Select Devices</h3>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Devices</mat-label>
+            <mat-select formControlName="selectedDevices" multiple>
+              <mat-option *ngFor="let device of devices" [value]="device">
+                {{ device.device_ip }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="preCheckForm.get('selectedDevices')?.hasError('required')">
+              Please select at least one device
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <!-- Commands Section -->
+        <div class="form-section">
+          <h3>Enter Commands</h3>
+          <div formArrayName="commands">
+            <div *ngFor="let command of commandsArray.controls; let i = index" class="command-row">
+              <mat-form-field appearance="outline" class="command-input">
+                <mat-label>Command {{ i + 1 }}</mat-label>
+                <input matInput [formControlName]="i" placeholder="Enter command">
+                <mat-error *ngIf="commandsArray.at(i).hasError('required')">
+                  Command is required
+                </mat-error>
+              </mat-form-field>
+              
+              <button 
+                type="button" 
+                mat-icon-button 
+                color="warn" 
+                (click)="removeCommand(i)" 
+                [disabled]="commandsArray.length <= 1">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            
+            <button type="button" mat-stroked-button color="primary" (click)="addCommand()">
+              <mat-icon>add</mat-icon> Add Command
+            </button>
+          </div>
+        </div>
+        
+        <!-- Submit Button -->
+        <div class="form-actions">
+          <button 
+            type="submit" 
+            mat-raised-button 
+            color="primary" 
+            [disabled]="preCheckForm.invalid || isLoading">
+            <mat-icon>play_arrow</mat-icon>
+            Initiate Pre-Check
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+    
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-overlay">
+      <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+      <p>Initiating pre-check...</p>
+    </div>
+  </mat-card>
+</div>

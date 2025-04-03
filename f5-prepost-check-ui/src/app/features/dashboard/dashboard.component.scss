@@ -1,0 +1,182 @@
+.dashboard-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  margin-bottom: 24px;
+  
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+.status-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+  
+  .status-card {
+    text-align: center;
+    
+    &.completed {
+      mat-card-header {
+        background-color: #e6f7ed;
+      }
+      .count { color: #28a745; }
+    }
+    
+    &.in-progress {
+      mat-card-header {
+        background-color: #e6f0ff;
+      }
+      .count { color: #007bff; }
+    }
+    
+    &.failed {
+      mat-card-header {
+        background-color: #ffebee;
+      }
+      .count { color: #dc3545; }
+    }
+    
+    .count {
+      font-size: 32px;
+      font-weight: bold;
+      padding: 16px 0;
+    }
+  }
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.recent-checks, .active-batches, .quick-actions {
+  margin-bottom: 24px;
+}
+
+// Material table styling
+mat-table {
+  width: 100%;
+}
+
+mat-header-row {
+  background-color: #f8f9fa;
+}
+
+mat-row:hover {
+  background-color: #f8f9fa;
+}
+
+// Status chips styling
+mat-chip {
+  &.completed {
+    background-color: #e6f7ed !important;
+    color: #28a745 !important;
+  }
+  
+  &.in_progress, &.initiated, &.in-progress {
+    background-color: #e6f0ff !important;
+    color: #007bff !important;
+  }
+  
+  &.failed {
+    background-color: #ffebee !important;
+    color: #dc3545 !important;
+  }
+  
+  &.partially_completed, &.partially-completed {
+    background-color: #fff3e0 !important;
+    color: #ff9800 !important;
+  }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  
+  p {
+    margin-top: 10px;
+  }
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: #dc3545;
+  
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  
+  mat-icon {
+    margin-bottom: 8px;
+    font-size: 32px;
+    height: 32px;
+    width: 32px;
+  }
+}
+
+.active-batch-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  
+  .batch-card {
+    margin-bottom: 0;
+    
+    .progress-info {
+      margin: 16px 0;
+      
+      .progress-text {
+        font-size: 12px;
+        color: #666;
+        text-align: right;
+        margin-top: 4px;
+      }
+    }
+  }
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  
+  button {
+    flex: 1;
+    min-width: 150px;
+    
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+}

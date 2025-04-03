@@ -1,0 +1,21 @@
+<div class="app-container">
+  <header class="main-header">
+    <div class="logo">F5 Pre/Post Check Tool</div>
+    <nav class="main-nav">
+      <a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a>
+      <a [routerLink]="['/new-check']" routerLinkActive="active">New Check</a>
+      <a [routerLink]="['/history']" routerLinkActive="active">History</a>
+    </nav>
+    <div class="user-info">
+      <span>User</span>
+    </div>
+  </header>
+  
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+  
+  <footer class="main-footer">
+    <div>F5 Pre/Post Check Tool &copy; 2023</div>
+  </footer>
+</div>

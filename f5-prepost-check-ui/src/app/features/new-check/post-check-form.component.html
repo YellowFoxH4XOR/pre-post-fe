@@ -1,0 +1,46 @@
+<div class="post-check-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Post-Check Configuration</mat-card-title>
+      <mat-card-subtitle>Select a batch ID to initiate post-checks</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form [formGroup]="postCheckForm" (ngSubmit)="onSubmit()">
+        <!-- Batch ID Selection -->
+        <div class="form-section">
+          <h3>Select Batch ID</h3>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Batch ID</mat-label>
+            <mat-select formControlName="selectedBatchId">
+              <mat-option *ngFor="let batchId of batchIds" [value]="batchId">
+                {{ batchId }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="postCheckForm.get('selectedBatchId')?.hasError('required')">
+              Please select a batch ID
+            </mat-error>
+          </mat-form-field>
+        </div>
+        
+        <!-- Submit Button -->
+        <div class="form-actions">
+          <button 
+            type="submit" 
+            mat-raised-button 
+            color="primary" 
+            [disabled]="postCheckForm.invalid || isLoading">
+            <mat-icon>play_arrow</mat-icon>
+            Initiate Post-Check
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+    
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-overlay">
+      <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+      <p>Initiating post-check...</p>
+    </div>
+  </mat-card>
+</div>
