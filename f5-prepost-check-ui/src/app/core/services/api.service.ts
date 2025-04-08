@@ -29,6 +29,11 @@ export class ApiService {
     return this.http.post<PreCheckResponse>(`${this.apiUrl}/precheck`, request);
   }
 
+ // PostCheck API
+  createPostCheck(request: PostCheckRequest, batchId: string): Observable<PostCheckResponse> {
+    return this.http.post<PostCheckResponse>(`${this.apiUrl}/postcheck/${batchId}`, request);
+  }
+
   getChecks(
     deviceIp?: string,
     status?: string,

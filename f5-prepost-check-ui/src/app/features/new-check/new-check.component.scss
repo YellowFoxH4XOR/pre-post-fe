@@ -1,5 +1,7 @@
 .new-check-container {
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
   
   h1 {
     margin-bottom: 8px;
@@ -11,5 +13,27 @@
     color: #666;
     max-width: 800px;
     line-height: 1.5;
+  }
+}
+
+.check-section {
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.check-section:last-child {
+  border-bottom: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .new-check-container {
+    padding: 15px;
+  }
+  
+  .check-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
   }
 }

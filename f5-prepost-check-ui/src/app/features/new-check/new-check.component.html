@@ -1,9 +1,25 @@
 <div class="new-check-container">
-  <h1>Create New Pre-Check</h1>
-  <p class="description">
-    Configure and initiate pre-checks on F5 devices. Select the devices you want to check,
-    enter the commands to execute, and submit to start the pre-check process.
-  </p>
+  <div class="check-section">
+    <h1>Create New Pre-Check</h1>
+    <p class="description">
+      Configure and initiate pre-checks on F5 devices. Select the devices you want to check,
+      enter the commands to execute, and submit to start the pre-check process.
+    </p>
+    
+    <app-pre-check-form></app-pre-check-form>
+  </div>
   
-  <app-pre-check-form></app-pre-check-form>
+  <div class="check-section">
+    <h1>Create New Post-Check</h1>
+    <p class="description">
+      Initiate post-checks for previously completed pre-checks. Select a batch ID
+      to run post-checks and compare results with the pre-check data.
+    </p>
+    
+    <app-post-check-form></app-post-check-form>
+  </div>
+
+  <div class="check-section">
+    <app-diffy></app-diffy>
+  </div>
 </div>

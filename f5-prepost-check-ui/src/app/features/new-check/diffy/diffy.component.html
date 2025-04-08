@@ -1,0 +1,91 @@
+<div class="diffy-container">
+  <div class="diffy-header">
+    <h1>Configuration Comparison Tool</h1>
+    <p class="description">
+      Compare device configurations between two dates to identify changes. Select a device and specify the date range to analyze.
+    </p>
+  </div>
+
+  <div class="diffy-form-container">
+    <form [formGroup]="diffForm" (ngSubmit)="onSubmit()" class="diffy-form">
+      <div class="form-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Device IP</mat-label>
+          <input matInput formControlName="deviceIp" placeholder="Enter device IP address">
+          <mat-error *ngIf="diffForm.get('deviceIp')?.hasError('required')">
+            Device IP is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="date-range-container">
+        <div class="form-field">
+          <mat-form-field appearance="outline">
+            <mat-label>Start Date</mat-label>
+            <input matInput [matDatepicker]="startPicker" formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+            <mat-error *ngIf="diffForm.get('startDate')?.hasError('required')">
+              Start date is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-field">
+          <mat-form-field appearance="outline">
+            <mat-label>End Date</mat-label>
+            <input matInput [matDatepicker]="endPicker" formControlName="endDate">
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+            <mat-error *ngIf="diffForm.get('endDate')?.hasError('required')">
+              End date is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="diffForm.invalid || loading">
+          <mat-icon>compare_arrows</mat-icon>
+          Compare Configurations
+        </button>
+        <button mat-button type="button" (click)="resetForm()" [disabled]="loading">
+          Reset
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+    <p>Fetching configuration differences...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <div *ngIf="showResults" class="results-container">
+    <h2>Configuration Differences</h2>
+    
+    <div *ngFor="let diff of diffResults" class="diff-card">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ diff.command }}</mat-card-title>
+          <mat-chip-set>
+            <mat-chip [color]="diff.changes_detected ? 'warn' : 'primary'" [highlighted]="true">
+              {{ diff.changes_detected ? 'Changes Detected' : 'No Changes' }}
+            </mat-chip>
+          </mat-chip-set>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <div class="diff-output">
+            <pre><code *ngFor="let line of diff.diff_output.split('\n')" [class]="getDiffLineClass(line)">{{ line }}</code></pre>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
